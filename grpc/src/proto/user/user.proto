@@ -1,0 +1,43 @@
+syntax = "proto3";
+option go_package = "github.com/iamdpastore/ocp-demo/grpc/src/user";
+
+package user;
+
+import "google/api/annotations.proto";
+
+service UserService {
+    rpc Create (CreateUserReq) returns (CreateUserResp) {
+        option (google.api.http) = {
+            post: "/v1/user"
+            body: "user"
+        };
+    }
+    rpc Read (ReadUserReq) returns (ReadUserResp) {
+        option (google.api.http) = {
+            get: "/v1/user/{id}"
+        };
+    }
+}
+
+message User {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+}
+
+message CreateUserReq {
+    User user = 1;
+}
+
+message CreateUserResp {
+    string id = 1;
+}
+
+message ReadUserReq {
+    string id = 1;
+}
+
+message ReadUserResp {
+    User user = 1;
+}
+

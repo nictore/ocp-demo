@@ -1,0 +1,30 @@
+appName: grpc-demo-istio
+
+account:
+  image: quay.io/dpastore/grpc-demo-account
+  version: v1.0.0
+  replicas: 1
+  route: account-grpc-demo.apps.lab.dpastore.uk
+
+order:
+  image: quay.io/dpastore/grpc-demo-order
+  version: v1.0.0
+  replicas: 1
+
+product:
+  image: quay.io/dpastore/grpc-demo-product
+  version: v1.0.0
+  replicas: 1
+
+user:
+  image: quay.io/dpastore/grpc-demo-user
+  version: v1.0.0
+  replicas: 1
+
+limits:
+  memory: "200"
+  cpu: "0.5"
+
+requests:
+  memory: "100"
+  cpu: "0.1"

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package product;
+option go_package = "github.com/iamdpastore/ocp-demo/grpc/src/product";
+
+import "google/api/annotations.proto";
+
+service ProductService {
+    rpc Create (CreateProductReq) returns (CreateProductResp) {
+        option (google.api.http) = {
+            post: "/v1/product"
+            body: "product"
+        };
+    }
+    rpc Read (ReadProductReq) returns (ReadProductResp) {
+        option (google.api.http) = {
+            get: "/v1/product/{id}"
+        };
+    }
+}
+
+message Product {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    int32 price = 4;
+}
+
+message CreateProductReq {
+    Product product = 1;
+}
+
+message CreateProductResp {
+    string id = 1;
+}
+
+message ReadProductReq {
+    string id = 1;
+}
+
+message ReadProductResp {
+    Product product = 1;
+}
+

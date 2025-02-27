@@ -1,0 +1,45 @@
+syntax = "proto3";
+option go_package = "github.com/iamdpastore/ocp-demo/grpc/src/account";
+
+package account;
+
+import "google/api/annotations.proto";
+import "user/user.proto";
+import "order/order.proto";
+
+service AccountService {
+    rpc Create (CreateAccountReq) returns (CreateAccountResp) {
+        option (google.api.http) = {
+            post: "/v1/account"
+            body: "account"
+        };
+    }
+    rpc Read (ReadAccountReq) returns (ReadAccountResp) {
+        option (google.api.http) = {
+            get: "/v1/account/{id}"
+        };
+    }
+}
+
+message Account {
+    string id = 1;
+    user.User user = 2;
+    repeated order.Order orders = 3;
+}
+
+message CreateAccountReq {
+    Account account = 1;
+}
+
+message CreateAccountResp {
+    string id = 1;
+}
+
+message ReadAccountReq {
+    string id = 1;
+}
+
+message ReadAccountResp {
+    Account account = 1;
+}
+
