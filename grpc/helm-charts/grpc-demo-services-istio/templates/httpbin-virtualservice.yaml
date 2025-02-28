@@ -13,7 +13,7 @@ spec:
   - httpbin.org
   gateways:
   - mesh
-  - httpbin
+  # - httpbin
   tls:
   - match:
     - gateways:
@@ -28,15 +28,15 @@ spec:
         port:
           number: 443
       weight: 100
-  - match:
-    - gateways:
-      - httpbin
-      port: 443
-      sniHosts:
-      - httpbin.org
-    route:
-    - destination:
-        host: httpbin.org
-        port:
-          number: 443
-      weight: 100
+  # - match:
+  #   - gateways:
+  #     - httpbin
+  #     port: 443
+  #     sniHosts:
+  #     - httpbin.org
+  #   route:
+  #   - destination:
+  #       host: httpbin.org
+  #       port:
+  #         number: 443
+  #     weight: 100
