@@ -13,30 +13,11 @@ spec:
   - httpbin.org
   gateways:
   - mesh
-  # - httpbin
-  tls:
-  - match:
-    - gateways:
-      - mesh
-      port: 443
-      sniHosts:
-      - httpbin.org
+  http:
+  - timeout: 3s
+    rewrite:
+      authority: httpbin.org
     route:
     - destination:
-        host: istio-egressgateway.istio-system.svc.cluster.local
-        subset: httpbin
-        port:
-          number: 443
+        host: httpbin.org
       weight: 100
-  # - match:
-  #   - gateways:
-  #     - httpbin
-  #     port: 443
-  #     sniHosts:
-  #     - httpbin.org
-  #   route:
-  #   - destination:
-  #       host: httpbin.org
-  #       port:
-  #         number: 443
-  #     weight: 100

@@ -1,25 +1,25 @@
-apiVersion: networking.istio.io/v1beta1
-kind: Gateway
-metadata:
-  annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
-    argocd.argoproj.io/sync-options: Prune=false
-  labels:
-    app: httpbin
-    app.kubernetes.io/name: httpbin
-    app.kubernetes.io/component: service
-    app.kubernetes.io/part-of: {{ .Values.appName }}
-    group: {{ .Values.appName }}
-  name: httpbin
-spec:
-  selector:
-    app: istio-egressgateway
-  servers:
-  - port:
-      number: 443
-      name: https
-      protocol: HTTPS
-    hosts:
-    - httpbin.org
-    tls:
-      mode: PASSTHROUGH
+# apiVersion: networking.istio.io/v1beta1
+# kind: Gateway
+# metadata:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-options: Prune=false
+#   labels:
+#     app: httpbin
+#     app.kubernetes.io/name: httpbin
+#     app.kubernetes.io/component: service
+#     app.kubernetes.io/part-of: {{ .Values.appName }}
+#     group: {{ .Values.appName }}
+#   name: httpbin
+# spec:
+#   selector:
+#     app: istio-egressgateway
+#   servers:
+#   - port:
+#       number: 443
+#       name: https
+#       protocol: HTTPS
+#     hosts:
+#     - httpbin.org
+#     tls:
+#       mode: PASSTHROUGH
