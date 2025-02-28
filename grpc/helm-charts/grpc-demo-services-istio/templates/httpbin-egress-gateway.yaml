@@ -1,6 +1,8 @@
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
   labels:
     app: httpbin
     app.kubernetes.io/name: httpbin
