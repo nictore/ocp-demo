@@ -9,7 +9,7 @@ account:
 order:
   image: quay.io/isanchez/grpc-demo-order
   version: develop
-  replicas: 1
+  replicas: 4
 
 product:
   image: quay.io/isanchez/grpc-demo-product
