@@ -35,7 +35,6 @@ spec:
       - httpbin.org
     route:
     - destination:
-        host: httpbin
+        host: httpbin.org
         port:
           number: 443
-      weight: 100
