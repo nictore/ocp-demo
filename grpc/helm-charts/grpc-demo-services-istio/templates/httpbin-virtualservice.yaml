@@ -17,12 +17,13 @@ spec:
   tls:
   - match:
     - gateways:
-      - httpbin
+      - mesh
       port: 443
       sniHosts:
       - httpbin.org
     route:
     - destination:
-        host: httpbin.org
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        subset: httpbin
         port:
           number: 443
