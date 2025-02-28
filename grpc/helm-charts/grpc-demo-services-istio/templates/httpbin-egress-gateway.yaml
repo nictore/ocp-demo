@@ -3,6 +3,7 @@ kind: Gateway
 metadata:
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-options: Prune=false
   labels:
     app: httpbin
     app.kubernetes.io/name: httpbin
