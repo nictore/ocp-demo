@@ -13,14 +13,9 @@ spec:
   - mesh
   hosts:
   - httpbin.org
-  tls:
-  - match:
-    - port: 443
-      sniHosts:
-      - httpbin.org
+  http:
+  - timeout: 3s
     route:
-    - destination:
-        host: httpbin.org
-        port:
-          number: 443
-      weight: 100
+      - destination:
+          host: httpbin.org
+        weight: 100
