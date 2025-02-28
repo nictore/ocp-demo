@@ -1,22 +1,19 @@
-# apiVersion: networking.istio.io/v1beta1
-# kind: ServiceEntry
-# metadata:
-#   labels:
-#     app: httpbin
-#     app.kubernetes.io/name: httpbin
-#     app.kubernetes.io/component: service
-#     app.kubernetes.io/part-of: {{ .Values.appName }}
-#     group: {{ .Values.appName }}
-#   name: httpbin
-# spec:
-#   hosts:
-#   - httpbin.org
-#   ports:
-#   - number: 443
-#     name: https
-#     protocol: HTTPS
-#   - number: 80
-#     name: http
-#     protocol: HTTP
-#   resolution: DNS
-#   location: MESH_EXTERNAL
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  labels:
+    app: httpbin
+    app.kubernetes.io/name: httpbin
+    app.kubernetes.io/component: service
+    app.kubernetes.io/part-of: {{ .Values.appName }}
+    group: {{ .Values.appName }}
+  name: httpbin
+spec:
+  hosts:
+  - httpbin.org
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
