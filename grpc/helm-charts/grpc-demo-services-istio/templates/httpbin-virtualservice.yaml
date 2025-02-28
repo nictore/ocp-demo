@@ -9,6 +9,8 @@ metadata:
     group: {{ .Values.appName }}
   name: httpbin
 spec:
+  gateways:
+  - mesh
   hosts:
   - httpbin.org
   tls:
