@@ -2,23 +2,23 @@ appName: grpc-demo-istio
 
 account:
   image: quay.io/isanchez/grpc-demo-account
-  version: latest
+  version: develop
   replicas: 1
   route: account-grpc-demo.apps.lab.dpastore.uk
 
 order:
   image: quay.io/isanchez/grpc-demo-order
-  version: latest
+  version: develop
   replicas: 1
 
 product:
   image: quay.io/isanchez/grpc-demo-product
-  version: latest
+  version: develop
   replicas: 1
 
 user:
   image: quay.io/isanchez/grpc-demo-user
-  version: latest
+  version: develop
   replicas: 1
 
 limits:
