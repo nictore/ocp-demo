@@ -12,5 +12,3 @@ spec:
   host: istio-egressgateway.istio-system.svc.cluster.local
   subsets:
   - name: httpbin
-    labels:
-      app: httpbin
