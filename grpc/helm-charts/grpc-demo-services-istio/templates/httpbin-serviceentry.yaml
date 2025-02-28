@@ -12,10 +12,6 @@ spec:
   hosts:
   - httpbin.org
   ports:
-  - number: 80
-    name: http
-    protocol: HTTP
-    targetPort: 443
   - number: 443
     name: https
     protocol: HTTPS

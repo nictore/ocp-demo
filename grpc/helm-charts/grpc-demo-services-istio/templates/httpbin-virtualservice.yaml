@@ -11,13 +11,13 @@ metadata:
 spec:
   hosts:
   - httpbin.org
-  gateways:
-  - mesh
-  http:
-  - timeout: 3s
-    rewrite:
-      authority: httpbin.org
+  tls:
+  - match:
+    - port: 443
+      sniHosts:
+      - httpbin.org
     route:
     - destination:
         host: httpbin.org
-      weight: 100
+        port:
+          number: 443
