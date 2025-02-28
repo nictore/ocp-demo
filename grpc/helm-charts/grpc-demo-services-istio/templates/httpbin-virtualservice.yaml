@@ -27,6 +27,7 @@ spec:
         subset: httpbin
         port:
           number: 443
+      weight: 100
   - match:
     - gateways:
       - httpbin
@@ -38,3 +39,4 @@ spec:
         host: httpbin.org
         port:
           number: 443
+      weight: 100
