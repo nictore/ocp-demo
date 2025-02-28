@@ -11,6 +11,8 @@ metadata:
 spec:
   host: httpbin.org
   trafficPolicy:
-    tls:
-      mode: SIMPLE
-      sni: httpbin.org # DOES FIX IT
+    portLevelSettings:
+    - port:
+        number: 80
+      tls:
+        mode: SIMPLE
