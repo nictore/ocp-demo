@@ -1,21 +1,21 @@
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  labels:
-    app: httpbin
-    app.kubernetes.io/name: httpbin
-    app.kubernetes.io/component: service
-    app.kubernetes.io/part-of: {{ .Values.appName }}
-    group: {{ .Values.appName }}
-  name: httpbin
-spec:
-  gateways:
-  - mesh
-  hosts:
-  - httpbin.org
-  http:
-  - timeout: 3s
-    route:
-      - destination:
-          host: httpbin.org
-        weight: 100
+# apiVersion: networking.istio.io/v1beta1
+# kind: VirtualService
+# metadata:
+#   labels:
+#     app: httpbin
+#     app.kubernetes.io/name: httpbin
+#     app.kubernetes.io/component: service
+#     app.kubernetes.io/part-of: {{ .Values.appName }}
+#     group: {{ .Values.appName }}
+#   name: httpbin
+# spec:
+#   gateways:
+#   - mesh
+#   hosts:
+#   - httpbin.org
+#   http:
+#   - timeout: 3s
+#     route:
+#       - destination:
+#           host: httpbin.org
+#         weight: 100
