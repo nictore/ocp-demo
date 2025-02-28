@@ -27,3 +27,15 @@ spec:
         subset: httpbin
         port:
           number: 443
+  - match:
+    - gateways:
+      - httpbin
+      port: 443
+      sniHosts:
+      - httpbin.org
+    route:
+    - destination:
+        host: httpbin
+        port:
+          number: 443
+      weight: 100
