@@ -24,9 +24,9 @@ spec:
       tcp:
         maxConnections: 1
   subsets:
-    - name: v1
+    - name: {{ .Values.server.version }}
       labels:
-        app.kubernetes.io/version: l1
+        version: {{ .Values.server.version }}
     # - name: v2
     #   labels:
     #     app.kubernetes.io/version: l2

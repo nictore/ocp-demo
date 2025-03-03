@@ -388,10 +388,7 @@ spec:
 `maxConnections:` 1 e `http1MaxPendingRequests: 1`: Queste regole indicano che se si supera più di una connessione e contemporanea, dovrebbero verificarsi alcuni errori quando istio-proxy tenta di aprire ulteriori richieste e connessioni.
 
 
-
-
 ## gRPC
-
 
 
 Più che altro ne conosco i vantaggi, per esempio sul milione di richieste è molto più performante rispetto all'HTTP ed è molto comodo per lo streaming di dati. Ti puoi sicuramente allontanare dall'implementare delle API con il modello REST visto che sono delle procedure remote che chiami direttamente
@@ -399,9 +396,9 @@ Più che altro ne conosco i vantaggi, per esempio sul milione di richieste è mo
 poi utilizza protocol buffer che per la serializzazione/deserializzazione è molto più performante rispetto ad un JSON visto che sono byte scambiati. Lo svantaggio è che il debugging è più ostico perchè devi avere un qualcosa che ti trasforma quei dati in formato leggibili (altrimenti rimangono byte) (modificato).
 
 
-
-
 ### Demo app rilasciata come Helm Chart con ArgoCD
+
+Rilasciamo una applicazione Quarkus che stabilisce comunicazione client server con protocollo grpc per verificare la mancanza di bilanciamento (multiplexing)
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -426,7 +423,9 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+```
 
+Rilascio stessa applicazione Quarkus client-server con istio per verificare gestione delle connessioni multiple grazie agli envoy
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -439,8 +438,8 @@ spec:
     namespace: grpc-demo-istio
     server: https://kubernetes.default.svc
   source:
-    path: helm-charts/grpc-demo-services-istio
-    repoURL: https://github.com/drhelius/grpc-demo.git
+    path: grpc/helm-charts/grpc-demo-services-istio
+    repoURL: https://github.com/nictore/grpc-demo.git
     targetRevision: HEAD
     helm:
       releaseName: grpc-demo-services-istio

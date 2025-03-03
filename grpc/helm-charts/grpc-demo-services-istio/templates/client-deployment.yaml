@@ -25,6 +25,9 @@ spec:
       labels:
         app: client-grpc
         version: {{ .Values.client.version }}
+      annotations:
+        sidecar.istio.io/inject: 'true'
+        sidecar.istio.io/logLevel: debug  
     spec:
       containers:
       - image: {{ .Values.client.image }}:{{ .Values.client.version }}
