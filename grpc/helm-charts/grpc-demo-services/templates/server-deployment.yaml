@@ -32,7 +32,7 @@ spec:
         name: grpc
         ports:
         - containerPort: 9000
-          protocol: grcp
+          protocol: grpc
         volumeMounts:
           - name: quarkus-config-volume
             mountPath: /deployments/config
