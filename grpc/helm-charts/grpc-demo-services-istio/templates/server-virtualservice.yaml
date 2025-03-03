@@ -9,6 +9,6 @@ spec:
   http:
     - route:
         - destination:
-            host: grpc
+            host: server-grpc
             port:
               number: 9000
