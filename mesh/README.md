@@ -390,13 +390,21 @@ spec:
 
 ## gRPC
 
-
 Più che altro ne conosco i vantaggi, per esempio sul milione di richieste è molto più performante rispetto all'HTTP ed è molto comodo per lo streaming di dati. Ti puoi sicuramente allontanare dall'implementare delle API con il modello REST visto che sono delle procedure remote che chiami direttamente
 
 poi utilizza protocol buffer che per la serializzazione/deserializzazione è molto più performante rispetto ad un JSON visto che sono byte scambiati. Lo svantaggio è che il debugging è più ostico perchè devi avere un qualcosa che ti trasforma quei dati in formato leggibili (altrimenti rimangono byte) (modificato).
 
 
+
 ### Demo app rilasciata come Helm Chart con ArgoCD
+
+
+Creazione namespace grpc-demo
+aggiunta annotazione  
+
+ labels:
+    argocd.argoproj.io/managed-by: openshift-gitops
+
 
 Rilasciamo una applicazione Quarkus che stabilisce comunicazione client server con protocollo grpc per verificare la mancanza di bilanciamento (multiplexing)
 
@@ -427,6 +435,28 @@ spec:
 
 Rilascio stessa applicazione Quarkus client-server con istio per verificare gestione delle connessioni multiple grazie agli envoy
 
+Creazione namespace grpc-demo
+aggiunta annotazione  
+
+ labels:
+    argocd.argoproj.io/managed-by: openshift-gitops
+
+### Aggiornare ServiceMeshMemberRoll
+
+```yaml
+apiVersion: maistra.io/v1
+kind: ServiceMeshMemberRoll
+metadata:
+  name: default
+  namespace: istio-system
+spec:
+  members:
+    - bookinfo
+    - grpc-demo-istio
+```
+
+### Rilascio app grpc con istio
+
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -452,19 +482,8 @@ spec:
       - CreateNamespace=true
 ```
 
-### Aggiornare ServiceMeshMemberRoll
+GRPC senza istio opzione con headless service
 
-```yaml
-apiVersion: maistra.io/v1
-kind: ServiceMeshMemberRoll
-metadata:
-  name: default
-  namespace: istio-system
-spec:
-  members:
-    - bookinfo
-    - grpc-demo-istio
-```
 
 ## Security
 
