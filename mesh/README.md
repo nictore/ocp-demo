@@ -510,5 +510,3 @@ spec:
 ```
 
 WARNING: Il passaggio alla modalità Enforce è facilmente attuabile se i workload non necessitano di comunicare con risorse esterne, perchè il traffico in egress dagli envoy viaggia cifrato
-
-
