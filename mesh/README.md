@@ -407,6 +407,31 @@ poi utilizza protocol buffer che per la serializzazione/deserializzazione è mol
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  name: grpc-demo
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: grpc-demo
+    server: https://kubernetes.default.svc
+  source:
+    path: grpc/helm-charts/grpc-demo-services
+    repoURL: https://github.com/nictore/ocp-demo.git
+    targetRevision: HEAD
+    helm:
+      releaseName: grpc-demo-services
+      valueFiles:
+      - values.yaml
+  sources: []
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
   name: grpc-demo-istio
   namespace: openshift-gitops
 spec:

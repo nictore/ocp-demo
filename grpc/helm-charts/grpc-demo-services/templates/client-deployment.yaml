@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.openshift.io/connects-to: client-{{ .Values.user.version }},server-{{ .Values.order.version }}
+    app.openshift.io/connects-to: client-{{ .Values.client.version }},server-{{ .Values.server.version }}
     app.openshift.io/vcs-ref: {{ .Values.client.version }}
   labels:
     app: client-grpc
