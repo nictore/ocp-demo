@@ -1,0 +1,4 @@
+/home/dpastore/devops/repo/github/ocp-demo/grpc/grpc-plain-text-quickstart/src/test/java/io/quarkus/grpc/examples/hello/HelloWorldEndpointTest.java
+/home/dpastore/devops/repo/github/ocp-demo/grpc/grpc-plain-text-quickstart/src/test/java/io/quarkus/grpc/examples/hello/HelloWorldServiceTest.java
+/home/dpastore/devops/repo/github/ocp-demo/grpc/grpc-plain-text-quickstart/src/test/java/io/quarkus/grpc/examples/hello/HelloWorldEndpointIT.java
+/home/dpastore/devops/repo/github/ocp-demo/grpc/grpc-plain-text-quickstart/src/test/java/io/quarkus/grpc/examples/hello/HelloWorldServiceIT.java

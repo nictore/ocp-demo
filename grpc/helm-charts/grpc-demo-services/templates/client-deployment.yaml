@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.openshift.io/connects-to: client-{{ .Values.user.version }},server-{{ .Values.order.version }}
+    app.openshift.io/vcs-ref: {{ .Values.client.version }}
+  labels:
+    app: client-grpc
+    version: {{ .Values.client.version }}
+    app.kubernetes.io/name: client-grpc
+    app.kubernetes.io/version: {{ .Values.client.version }}
+    app.kubernetes.io/component: service
+    app.kubernetes.io/part-of: {{ .Values.appName }}
+    app.openshift.io/runtime: quarkus
+    group: {{ .Values.appName }}
+  name: client-grpc-{{ .Values.client.version }}
+spec:
+  replicas: {{ .Values.client.replicas }}
+  selector:
+    matchLabels:
+      app: client-grpc
+      version: {{ .Values.client.version }}
+  template:
+    metadata:
+      labels:
+        app: client-grpc
+        version: {{ .Values.client.version }}
+    spec:
+      containers:
+      - image: {{ .Values.client.image }}:{{ .Values.client.version }}
+        imagePullPolicy: Always
+        name: grpc
+        ports:
+        - containerPort: 9000
+          protocol: grcp
+        volumeMounts:
+          - name: quarkus-config-volume
+            mountPath: /deployments/config
+        resources:
+          limits:
+            cpu: {{ .Values.limits.cpu }}
+            memory: {{ .Values.limits.memory }}Mi
+          requests:
+            cpu: {{ .Values.requests.cpu }}
+            memory: {{ .Values.requests.memory }}Mi
+      volumes:
+        - name: quarkus-config-volume
+          configMap:
+            name: grpcconfig
+            defaultMode: 420  

@@ -19,7 +19,7 @@ metadata:
   name: bookinfo
 spec:
   hosts:
-  - "bookinfo.apps.lab.dpastore.uk"
+  - "*"
   gateways:
   - bookinfo-gateway
   http:

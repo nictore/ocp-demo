@@ -1,24 +1,14 @@
 appName: grpc-demo
 
-account:
-  image: quay.io/isanchez/grpc-demo-account
+client:
+  image: quay.io/dpastore/grpc-demo
   version: v1.0.0
   replicas: 1
 
-order:
-  image: quay.io/isanchez/grpc-demo-order
+server:
+  image: quay.io/dpastore/grpc-demo
   version: v1.0.0
-  replicas: 1
-
-product:
-  image: quay.io/isanchez/grpc-demo-product
-  version: v1.0.0
-  replicas: 1
-
-user:
-  image: quay.io/isanchez/grpc-demo-user
-  version: v1.0.0
-  replicas: 1
+  replicas: 3
 
 limits:
   memory: "200"

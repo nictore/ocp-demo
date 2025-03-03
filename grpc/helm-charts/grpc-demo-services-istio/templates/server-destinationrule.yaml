@@ -1,0 +1,35 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  labels:
+    app: server-grpc
+    version: {{ .Values.server.version }}
+    app.kubernetes.io/name: server-grpc
+    app.kubernetes.io/version: {{ .Values.server.version }}
+    app.kubernetes.io/component: service
+    app.kubernetes.io/part-of: {{ .Values.appName }}
+    group: {{ .Values.appName }}
+  name: server-grpc
+spec:
+  host: server-grpc
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+    connectionPool:
+      http:
+        http1MaxPendingRequests: 1
+        http2MaxRequests: 1
+        maxRequestsPerConnection: 1
+      tcp:
+        maxConnections: 1
+  subsets:
+    - name: v1
+      labels:
+        app.kubernetes.io/version: l1
+    # - name: v2
+    #   labels:
+    #     app.kubernetes.io/version: l2
+    # - name: v3
+    #   labels:
+    #     app.kubernetes.io/version: l3

@@ -51,12 +51,6 @@ spec:
 
 ### Definizione ServiceMeshMemberRoll
 
-Creazione namespace bookinfo per applicazione di test.
-
-```bash
-oc new-project bookinfo
-```
-
 Questo oggetto fornisce agli amministratori di OpenShift Service Mesh un modo per delegare le autorizzazioni e per aggiungere progetti a una mesh. 
 
 ```yaml smmr.yaml
@@ -133,12 +127,11 @@ spec:
 
 ### Definizione ingressGateway
 
-Una risorsa gateway definisce un load balancer che opera ai margini della mesh e gestisce connessioni HTTP/TCP in entrata o in uscita. 
-La specifica richiede:
+Una risorsa gateway descrive un bilanciatore di carico che opera ai margini della mesh ricevendo connessioni HTTP/TCP in entrata o in uscita. La specifica descrive:
 
 - un set di porte che devono essere esposte
 - il tipo di protocollo da utilizzare
-- la configurazione SNI (hosts) per bilanciare il traffico
+- la configurazione SNI per il bilanciatore di carico e così via.
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -154,7 +147,7 @@ spec:
       name: http
       protocol: HTTP
     hosts: 
-    - "bookinfo.apps.lab.dpastore.uk"
+    - "*"
 ```
 
 A differenza di una Ingress o Rotta standard, non include alcuna configurazione di routing del traffico. Il routing del traffico è invece configurato utilizzando l'oggetto virtualServices.
@@ -170,7 +163,7 @@ metadata:
   name: bookinfo
 spec:
   hosts:
-  - "bookinfo.apps.lab.dpastore.uk"
+  - "*"
   gateways:
   - bookinfo-gateway
   http:
@@ -365,8 +358,7 @@ spec:
 
 - Scenario 7: circuit breaking
 
-Il circuit breaking è un pattern importante per la creazione di applicazioni microservice resilienti. 
-Il circuit breaking consente di scrivere applicazioni che limitano l'impatto di guasti, picchi di latenza e altri effetti indesiderati delle peculiarità della rete.
+Il circuit breaking è un pattern importante per la creazione di applicazioni microservice resilienti. Il circuit breaking consente di scrivere applicazioni che limitano l'impatto di guasti, picchi di latenza e altri effetti indesiderati delle peculiarità della rete.
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -400,16 +392,13 @@ spec:
 
 ## gRPC
 
-Vantaggi:
-- molto performante rispetto all'HTTP
-- ideale per lo streaming di dati 
 
-Ti puoi sicuramente allontanare dall'implementare delle API con il modello REST visto che sono delle procedure remote che chiami direttamente
 
-poi utilizza protocol buffer che per la serializzazione/deserializzazione è molto più performante rispetto ad un JSON visto che sono byte scambiati.
+Più che altro ne conosco i vantaggi, per esempio sul milione di richieste è molto più performante rispetto all'HTTP ed è molto comodo per lo streaming di dati. Ti puoi sicuramente allontanare dall'implementare delle API con il modello REST visto che sono delle procedure remote che chiami direttamente
 
-svantaggio:
-- debugging ostico perchè devi avere un qualcosa che ti trasforma quei dati in formato leggibili (altrimenti rimangono byte)
+poi utilizza protocol buffer che per la serializzazione/deserializzazione è molto più performante rispetto ad un JSON visto che sono byte scambiati. Lo svantaggio è che il debugging è più ostico perchè devi avere un qualcosa che ti trasforma quei dati in formato leggibili (altrimenti rimangono byte) (modificato).
+
+
 
 
 ### Demo app rilasciata come Helm Chart con ArgoCD
@@ -425,8 +414,8 @@ spec:
     namespace: grpc-demo-istio
     server: https://kubernetes.default.svc
   source:
-    path: grpc/helm-charts/grpc-demo-services-istio
-    repoURL: https://github.com/iamdpastore/ocp-demo.git
+    path: helm-charts/grpc-demo-services-istio
+    repoURL: https://github.com/drhelius/grpc-demo.git
     targetRevision: HEAD
     helm:
       releaseName: grpc-demo-services-istio
@@ -435,13 +424,8 @@ spec:
   sources: []
   project: default
   syncPolicy:
-    automated:
-      selfHeal: true
-      prune: true
     syncOptions:
       - CreateNamespace=true
-      - PruneLast=true
-    
 ```
 
 ### Aggiornare ServiceMeshMemberRoll

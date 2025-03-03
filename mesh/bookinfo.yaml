@@ -130,8 +130,7 @@ spec:
         image: quay.io/maistra/examples-bookinfo-ratings-v1:2.6.0
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 9080    
-
+        - containerPort: 9080
 ---
 ##################################################################################################
 # Reviews service

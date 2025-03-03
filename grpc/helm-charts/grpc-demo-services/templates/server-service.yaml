@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: server-grpc
+    version: {{ .Values.server.version }}
+    app.kubernetes.io/name: server-grpc
+    app.kubernetes.io/version: {{ .Values.server.version }}
+    app.kubernetes.io/component: service
+    app.kubernetes.io/part-of: {{ .Values.appName }}
+    group: {{ .Values.appName }}
+  name: server-grpc
+spec:
+  ports:
+  - name: grpc
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: server-grpc
+    version: {{ .Values.server.version }}

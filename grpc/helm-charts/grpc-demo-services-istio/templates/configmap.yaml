@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: grpcconfig
+  namespace: grpc
+data:
+  application.properties: |
+    numrequest: 25
+    quarkus.grpc.clients.hello.host: grpc-server.{{ .Release.Namespace }}.svc.cluster.local
+    teststring: prom

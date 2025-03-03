@@ -1,16 +1,12 @@
 apiVersion: v2
 name: grpc-demo-services
-version: 2.0.0
-description: A group of interconnected GRPC demo services written in Go.
+version: 1.0.0
+description: A client server interconnected GRPC demo services written in Quarkus.
 keywords:
-  - go
+  - quarkus
   - grpc
   - demo
   - service
-home: https://github.com/iamdpastore/ocp-demo
+home: https://github.com/nictore/ocp-demo
 sources:
-  - https://github.com/iamdpastore/ocp-demo
-maintainers:
-  - name: dpastore
-    email: domenico.pastore@par-tec.it
-icon: https://raw.githubusercontent.com/openshift/console/master/frontend/public/imgs/logos/golang.svg
+  - https://github.com/nictore/ocp-demo
