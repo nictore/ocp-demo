@@ -439,7 +439,7 @@ spec:
     server: https://kubernetes.default.svc
   source:
     path: grpc/helm-charts/grpc-demo-services-istio
-    repoURL: https://github.com/nictore/grpc-demo.git
+    repoURL: https://github.com/nictore/ocp-demo.git
     targetRevision: HEAD
     helm:
       releaseName: grpc-demo-services-istio

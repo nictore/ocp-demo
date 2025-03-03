@@ -2,7 +2,6 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: grpcconfig
-  namespace: grpc
 data:
   application.properties: |
     numrequest: 25
