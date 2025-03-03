@@ -1,8 +1,8 @@
 # Service Mesh Demo
 
-## Requisiti
+## 1. Requisiti
 
-### Setup Operators
+### 1.1 Setup Operators
 
 1. OpenShift Elasticsearch Operator
 2. Red Hat OpenShift distributed tracing platform
@@ -11,7 +11,7 @@
 
 ![image](images/1.png)
 
-### Definizione ServiceMeshControlPlane
+### 1.2 Definizione ServiceMeshControlPlane
 
 ```yaml smcp.yaml
 apiVersion: maistra.io/v2
@@ -47,9 +47,9 @@ spec:
   version: v2.6
 ```
 
-## Aggiunta di servizi in Service Mesh
+## 2. Aggiunta di servizi in Service Mesh
 
-### Definizione ServiceMeshMemberRoll
+### 2.1 Definizione ServiceMeshMemberRoll
 
 Questo oggetto fornisce agli amministratori di OpenShift Service Mesh un modo per delegare le autorizzazioni e per aggiungere progetti a una mesh. 
 
@@ -64,7 +64,7 @@ spec:
     - bookinfo
 ```
 
-La Service Mesh in questo modo definisce anche network policy nella control plane della Service Mesh e nei namespace che partecipano alla mesh per consentire il traffico tra di essi.
+La Service Mesh definisce anche le network policy nella control plane della Service Mesh e nei namespace partecipanti, regolando il traffico all'interno della mesh.
 
 ```bash
 oc get netpol -n bookinfo
@@ -73,17 +73,18 @@ istio-expose-route-basic
 istio-mesh-basic
 ```
 
-### Deploy Bookinfo
+
+### 2. Deploy Bookinfo
 
 L'applicazione Bookinfo visualizza informazioni simili ad un negozio di libri online.
-L'applicazione mostra una pagina che descrive il libro, i dettagli del libro (ISBN, numero di pagine e altre informazioni) e le recensioni del libro.
+L'applicazione mostra una pagina che descrive il libro, i suoi dettagli (ISBN, numero di pagine e altre informazioni) e le recensioni ricevute.
 
 L'applicazione Bookinfo è composta da questi microservizi:
 
 - Il microservizio productpage chiama i microservizi details e reviews per popolare la pagina.
 - Il microservizio details contiene informazioni sui libri.
-- Il microservizio reviews contiene le recensioni dei libri. Chiama anche il microservizio delle ratings.
-- Il microservizio delle ratings contiene le informazioni sulle classifiche dei libri che accompagnano le recensioni.
+- Il microservizio reviews contiene le recensioni dei librie e chiama il microservizio dei ratings.
+- Il microservizio dei ratings contiene le informazioni sulle classifiche dei libri che accompagnano le recensioni.
 
 Esistono tre versioni del microservizio reviews:
 
@@ -91,9 +92,9 @@ Esistono tre versioni del microservizio reviews:
 - La versione v2 chiama il Servizio reviews e visualizza ogni valutazione con stelle nere.
 - La versione v3 chiama il Servizio reviews e visualizza ogni valutazione con stelle rosse.
 
-### Sidecar Injection
+### 3. Sidecar Injection
 
-Annotations nei deployment per abilitare injection del proxy istio
+Annotations nei deployment per abilitare l'injection del proxy istio
 
 ```yaml
 apiVersion: apps/v1
@@ -110,7 +111,7 @@ spec:
 E' possibile sfruttare l'injection automatica dei sidecar configurando una label direttamente sul namespace:
 `$ oc label namespace <nome_namespace> istio-injection=enabled`
 
-### Versioning del deployment
+### 4. Versioning del deployment
 
 ```yaml
 apiVersion: apps/v1
@@ -125,13 +126,13 @@ spec:
         version: v1
 ```
 
-### Definizione ingressGateway
+### 5. Definizione ingressGateway
 
-Una risorsa gateway descrive un bilanciatore di carico che opera ai margini della mesh ricevendo connessioni HTTP/TCP in entrata o in uscita. La specifica descrive:
+Una risorsa gateway rappresenta un bilanciatore di carico che opera ai margini della mesh, gestendo le connessioni HTTP/TCP in entrata e in uscita. La sua specifica descrive:
 
 - un set di porte che devono essere esposte
 - il tipo di protocollo da utilizzare
-- la configurazione SNI per il bilanciatore di carico e così via.
+- la configurazione SNI per il bilanciatore di carico e altro ancora.
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -150,11 +151,11 @@ spec:
     - "*"
 ```
 
-A differenza di una Ingress o Rotta standard, non include alcuna configurazione di routing del traffico. Il routing del traffico è invece configurato utilizzando l'oggetto virtualServices.
+A differenza di una Ingress o Rotta standard, non include alcuna configurazione di routing del traffico. Il routing del traffico è invece configurato utilizzando l'oggetto VirtualService.
 
-### Definizione virtualServices
+### 6. Definizione virtualServices
 
-Per specificare il routing e per far funzionare il gateway come previsto, devi anche associare il gateway a un virtualServices:
+Per specificare il routing e per far funzionare il gateway come previsto, bisogna anche associare il gateway a un virtualService:
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -185,7 +186,7 @@ spec:
           number: 9080
 ```
 
-## Gestione del traffico
+## 7. Gestione del traffico
 
 Per il microservizio reviews definiamo un oggetto DestinationRule per identificare i subset in base alla versione del deployment, configura quindi tre diversi sottoinsiemi:
 
@@ -390,23 +391,29 @@ spec:
 
 ## gRPC
 
+gRPC (acronimo di gRPC Remote Procedure Calls) è un framework multipiattaforma ad alte prestazioni per chiamate di procedura remota (RPC). gRPC è stato inizialmente creato da Google, ma è open source e viene utilizzato in molte organizzazioni. I casi d'uso spaziano dai microservizi all'"ultimo miglio" dell'informatica (mobile, web e Internet of Things). gRPC utilizza HTTP/2 per il trasporto, Protocol Buffers come linguaggio di descrizione dell'interfaccia e fornisce funzionalità quali autenticazione, streaming bidirezionale e controllo del flusso, binding bloccanti o non bloccanti. Genera binding client e server multipiattaforma per molti linguaggi. Gli scenari di utilizzo più comuni includono la connessione di servizi in un'architettura in stile microservizi o la connessione di client di dispositivi mobili a servizi backend.
+
+A partire dal 2019, l'utilizzo di HTTP/2 da parte di gRPC rende impossibile implementare un client gRPC in un browser, richiedendo invece un proxy.
+
+gRPC supporta l'utilizzo di Transport Layer Security (TLS) e l'autenticazione basata su token.
+Per l'autorizzazione basata su token, gRPC fornisce Server Interceptor e un Client Interceptor.
+
 Più che altro ne conosco i vantaggi, per esempio sul milione di richieste è molto più performante rispetto all'HTTP ed è molto comodo per lo streaming di dati. Ti puoi sicuramente allontanare dall'implementare delle API con il modello REST visto che sono delle procedure remote che chiami direttamente
 
 poi utilizza protocol buffer che per la serializzazione/deserializzazione è molto più performante rispetto ad un JSON visto che sono byte scambiati. Lo svantaggio è che il debugging è più ostico perchè devi avere un qualcosa che ti trasforma quei dati in formato leggibili (altrimenti rimangono byte) (modificato).
 
 
-
 ### Demo app rilasciata come Helm Chart con ArgoCD
 
 
-Creazione namespace grpc-demo
+### 1. Creazione namespace grpc-demo
 aggiunta annotazione  
 
  labels:
     argocd.argoproj.io/managed-by: openshift-gitops
 
 
-Rilasciamo una applicazione Quarkus che stabilisce comunicazione client server con protocollo grpc per verificare la mancanza di bilanciamento (multiplexing)
+### 2. Rilasciamo una applicazione Quarkus che stabilisce una comunicazione client-server con protocollo grpc per verificare la mancanza di bilanciamento (multiplexing)
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -433,15 +440,15 @@ spec:
       - CreateNamespace=true
 ```
 
-Rilascio stessa applicazione Quarkus client-server con istio per verificare gestione delle connessioni multiple grazie agli envoy
+### 3. Rilascio stessa applicazione Quarkus client-server con istio per verificare gestione delle connessioni multiple grazie agli envoy
 
-Creazione namespace grpc-demo
+### 3.1 Creazione namespace grpc-demo
 aggiunta annotazione  
 
  labels:
     argocd.argoproj.io/managed-by: openshift-gitops
 
-### Aggiornare ServiceMeshMemberRoll
+### 3.2 Aggiornare ServiceMeshMemberRoll
 
 ```yaml
 apiVersion: maistra.io/v1
@@ -455,7 +462,7 @@ spec:
     - grpc-demo-istio
 ```
 
-### Rilascio app grpc con istio
+### 4. Rilascio app grpc con istio
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -482,7 +489,12 @@ spec:
       - CreateNamespace=true
 ```
 
-GRPC senza istio opzione con headless service
+### GRPC senza istio opzione con headless service
+
+Il motivo principale per cui è difficile bilanciare il traffico gRPC è che le persone vedono gRPC come HTTP ed è qui che inizia il problema, in base alla progettazione sono diversi, mentre HTTP crea e chiude le connessioni per richiesta, gRPC opera su un protocollo HTTP2 che funziona su una connessione TCP di lunga durata che rende più difficile il bilanciamento poiché più richieste passano attraverso la stessa connessione grazie alla funzione multiplex.
+
+Senza la service mesh è necessario implementare soluzioni alternative per gestire efficacemente il bilanciamento del carico del traffico gRPC in Kubernetes. Queste soluzioni possono includere la configurazione diretta dei client per gestire più connessioni server o l'utilizzo di proxy come meccanismo di bilanciamento, poiché averlo nell'applicazione principale aumenterà la complessità e il consumo di risorse nel tentativo di mantenere molte connessioni aperte e ribilanciarle.
+Immagina questo, con il bilanciamento finale nell'app avresti 1 istanza connessa a N server (1-N), ma con un proxy avresti 1 istanza connessa a M proxy connessi a N server (1-M-N) dove sicuramente M < N poiché ogni istanza proxy può gestire molte connessioni ai diversi server.
 
 
 ## Security
