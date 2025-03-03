@@ -14,8 +14,6 @@ metadata:
 spec:
   host: server-grpc
   trafficPolicy:
-    tls:
-      mode: ISTIO_MUTUAL
     connectionPool:
       http:
         http1MaxPendingRequests: 1
