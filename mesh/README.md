@@ -442,7 +442,7 @@ spec:
 
 ### 3. Rilascio stessa applicazione Quarkus client-server con istio per verificare gestione delle connessioni multiple grazie agli envoy
 
-### 3.1 Creazione namespace grpc-demo
+### 3.1 Creazione namespace grpc-demo-istio
 aggiunta annotazione  
 
  labels:
