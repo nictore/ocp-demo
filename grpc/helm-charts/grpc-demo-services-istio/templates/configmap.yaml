@@ -6,5 +6,5 @@ metadata:
 data:
   application.properties: |
     numrequest: 25
-    quarkus.grpc.clients.hello.host: grpc-server.{{ .Release.Namespace }}.svc.cluster.local
+    quarkus.grpc.clients.hello.host: server-grpc.{{ .Release.Namespace }}.svc.cluster.local
     teststring: prom
