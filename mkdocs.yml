@@ -1,11 +1,10 @@
 site_name: Documentation
+site_author: Domenico Pastore
 
 theme:
-  logo: assets/logo.svg
-  favicon: assets/images/favicon.ico
   name: material
   icon:
-    repo: fontawesome/brands/bitbucket
+    logo: logo
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -72,3 +71,6 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra:
+  homepage: http://127.0.0.1:8000/1index/
