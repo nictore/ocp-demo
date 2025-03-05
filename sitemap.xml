@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://nictore.github.io/ocp-demo/1index/</loc>
+         <lastmod>2025-03-05</lastmod>
+    </url>
+    <url>
+         <loc>https://nictore.github.io/ocp-demo/2servmeshdemo/</loc>
+         <lastmod>2025-03-05</lastmod>
+    </url>
+    <url>
+         <loc>https://nictore.github.io/ocp-demo/3grpc/</loc>
+         <lastmod>2025-03-05</lastmod>
+    </url>
+    <url>
+         <loc>https://nictore.github.io/ocp-demo/4helmchartArgo/</loc>
+         <lastmod>2025-03-05</lastmod>
+    </url>
+    <url>
+         <loc>https://nictore.github.io/ocp-demo/5helmchartIstio/</loc>
+         <lastmod>2025-03-05</lastmod>
+    </url>
+    <url>
+         <loc>https://nictore.github.io/ocp-demo/6security/</loc>
+         <lastmod>2025-03-05</lastmod>
+    </url>
+</urlset>
