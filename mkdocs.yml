@@ -31,6 +31,7 @@ theme:
     - navigation.footer
     - navigation.tabs
     - navigation.tabs.sticky
+    - navigation.top
     - version
 
 plugins:
@@ -74,4 +75,12 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 extra:
-  homepage: https://github.com/nictore/ocp-demo
+  homepage: https://nictore.github.io/ocp-demo/
+
+nav:
+  - Home: index.md
+  - Service Mesh Demo: 2servmeshdemo.md
+  - gRPC: 3grpc.md
+  - Helm Chart con Argo: 4helmchartArgo.md
+  - Helm Chart con Istio: 5helmchartIstio.md
+  - Sicurezza: 6security.md
