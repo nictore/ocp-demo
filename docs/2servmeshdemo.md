@@ -83,11 +83,14 @@ Il microservizio productpage chiama i microservizi details e reviews per popolar
 Il microservizio details contiene informazioni sui libri.
 Il microservizio reviews contiene le recensioni dei librie e chiama il microservizio dei ratings.
 Il microservizio dei ratings contiene le informazioni sulle classifiche dei libri che accompagnano le recensioni.
+
 Esistono tre versioni del microservizio reviews:
 
-La versione v1 non chiama il servizio di ratings.
-La versione v2 chiama il Servizio reviews e visualizza ogni valutazione con stelle nere.
-La versione v3 chiama il Servizio reviews e visualizza ogni valutazione con stelle rosse.
+- La versione v1 non chiama il servizio di ratings.
+- La versione v2 chiama il Servizio reviews e visualizza ogni valutazione con stelle nere.
+- La versione v3 chiama il Servizio reviews e visualizza ogni valutazione con stelle rosse.
+
+-> [bookinfo.yaml](https://raw.githubusercontent.com/nictore/ocp-demo/refs/heads/main/mesh/bookinfo.yaml)
 
 ## 4. Sidecar Injection
 
