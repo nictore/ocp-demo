@@ -153,6 +153,7 @@ spec:
     hosts: 
     - "*"
 ```
+
 A differenza di una Ingress o Rotta standard, non include alcuna configurazione di routing del traffico. Il routing del traffico è invece configurato utilizzando l'oggetto VirtualService.
 
 ## 7. Definizione VirtualServices
@@ -215,7 +216,7 @@ spec:
       simple: RANDOM
 ```
 
-### Scenario 1
+### Scenario 1 (Routing)
 
 Veicoliamo tutto il traffico solo per la versione v1 di review e poi solo per v2
 
@@ -234,7 +235,7 @@ spec:
         subset: v1   #v2
 ```
 
-### Scenario 2
+### Scenario 2 (Shifting)
 
 Veicoliamo una percentuale di traffico sulle 2 istanze v1 e v2
 
@@ -258,7 +259,7 @@ spec:
       weight: 20
 ```
 
-### Scenario 3
+### Scenario 3 (Http header)
 
 Set header http, veicola traffico solo su v2 solo se corrisponde un determinato utente
 
@@ -285,9 +286,9 @@ spec:
         subset: v3
 ```
 
-### Scenario 4
+### Scenario 4 (Fault Injection)
 
-Fault injection microservizio details // Aprire jaeger
+Fault injection microservizio details e osservere jaeger
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -320,7 +321,7 @@ spec:
         subset: v1
 ```
 
-### Scenario 5
+### Scenario 5 (Delay)
 
 Delay
 
@@ -344,9 +345,9 @@ spec:
         subset: v1
 ```
 
-### Scenario 6
+### Scenario 6 (Mirroring)
 
-Mirroring del traffico // Aprire grafana
+Mirroring del traffico osservare con grafana
 Il mirroring invia una copia del traffico live a un servizio mirrorato.
 
 ```yaml
@@ -370,9 +371,7 @@ spec:
     value: 100.0
 ```
 
-### Scenario 7
-
-Circuit breaking
+### Scenario 7 (Circuit breaking)
 
 Il circuit breaking è un pattern importante per la creazione di applicazioni microservice resilienti. Il circuit breaking consente di scrivere applicazioni che limitano l'impatto di guasti, picchi di latenza e altri effetti indesiderati delle peculiarità della rete.
 
@@ -400,8 +399,10 @@ spec:
       baseEjectionTime: 3m
       maxEjectionPercent: 100
 ```
-```yaml
-maxConnections: 1 e http1MaxPendingRequests: 1
-```
 
 Queste regole indicano che se si supera più di una connessione e contemporanea, dovrebbero verificarsi alcuni errori quando istio-proxy tenta di aprire ulteriori richieste e connessioni.
+
+```yaml
+maxConnections: 1 
+http1MaxPendingRequests: 1
+```

@@ -1,4 +1,4 @@
-site_name: Documentation
+site_name: Demo
 site_author: Domenico Pastore
 site_url: https://nictore.github.io/ocp-demo/
 
@@ -79,8 +79,6 @@ extra:
 
 nav:
   - Home: index.md
-  - Service Mesh Demo: 2servmeshdemo.md
-  - gRPC: 3grpc.md
-  - Helm Chart con Argo: 4helmchartArgo.md
-  - Helm Chart con Istio: 5helmchartIstio.md
-  - Sicurezza: 6security.md
+  - Service Mesh Demo: servicemesh.md
+  - gRPC: grpc.md
+  - Sicurezza: security.md
