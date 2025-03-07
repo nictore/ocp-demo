@@ -70,6 +70,47 @@ oc -n test exec deploy/grpc-client -- curl http://localhost:8080/hello/grpc
 
 Verificare i log lato server, solo una istanza ha ricevuto i messaggi
 
+### 4. Osservazioni
+
+**Perché il traffico gRPC non è bilanciato correttamente in Kubernetes?**
+
+Il motivo principale per cui è difficile bilanciare il traffico gRPC è che spesso... si pensa che gRPC sia come HTTP ed è qui che inizia il problema
+Mentre HTTP crea e chiude connessioni per richiesta, gRPC opera su protocollo HTTP2 che funziona su una connessione TCP di lunga durata rendendo più difficile il bilanciamento poiché più richieste passano attraverso la stessa connessione grazie alla funzionalità di multiplexing. Tuttavia, ci sono altri errori comuni:
+
+- Configurazione errata del client gRPC
+- Configurazione errata del servizio Kubernetes
+
+#### Configurazione errata del client gRPC
+
+Il client gRPC come configurazione predefinita prevede un tipo di connessione 1–1, in ambiente produttivo non funziona come vorremmo.
+Il client gRPC predefinito offre la possibilità di connettersi con un semplice record IP/DNS che crea una sola connessione con il servizio di destinazione.
+Ecco perché è necessario effettuare una configurazione diversa.
+
+Impostazione di default:
+
+```go
+func main(){ 
+  conn, err := grpc.Dial("my-domain:50051", grpc.WithInsecure()) 
+  if err != nil { 
+    log.Fatalf("errore di connessione con il server gRPC: %v", err) 
+  }
+  ...
+```
+
+Impostazione consigliata:
+
+```go
+func main(){ 
+  addr := fmt.Sprintf("%s:///%s", "dns", " my-domain :50051") 
+  conn, err := grpc.Dial(addr, grpc.WithInsecure(),grpc.WithBalancerName(roundrobin.Name)) 
+  if err != nil { 
+    log.Fatalf("connessione non riuscita: %v", err) 
+  } 
+  ...
+```
+
+In questo modo nel caso in cui il nostro client si connetta a più server, ora il nostro client gRPC è in grado di bilanciare le richieste in base all'algoritmo di bilanciamento scelto.
+
 ## App GRPC con Istio
 
 Rilasciamo la stessa applicazione Quarkus client-server con istio per verificare gestione delle connessioni multiple grazie agli envoy
