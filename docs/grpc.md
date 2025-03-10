@@ -136,16 +136,15 @@ oc annotate ingresses.config/cluster ingress.operator.openshift.io/default-enabl
 
 ## gRPC senza Istio? (k8s headless service)
 
-Il motivo principale per cui è difficile bilanciare il traffico gRPC è che le persone vedono gRPC come HTTP ed è qui che inizia il problema, in base alla progettazione sono diversi, mentre HTTP crea e chiude le connessioni per richiesta, gRPC opera su un protocollo HTTP2 che funziona su una connessione TCP di lunga durata che rende più difficile il bilanciamento poiché più richieste passano attraverso la stessa connessione grazie alla funzione multiplex.
+Il motivo principale per cui è difficile bilanciare il traffico gRPC è che le persone vedono gRPC come HTTP ed è qui che inizia il problema, sono diversi, mentre HTTP apre e chiude le connessioni per richiesta, gRPC opera su un protocollo HTTP2 che funziona su una connessione TCP di lunga durata che rende più difficile il bilanciamento poiché più richieste passano attraverso la stessa connessione grazie alla funzione multiplex.
 
 Senza una service mesh è necessario implementare soluzioni alternative per gestire efficacemente il bilanciamento del carico del traffico gRPC in Kubernetes.
 Queste soluzioni possono includere la configurazione diretta dei client per gestire più connessioni server.
 
 ### Configurazione client gRPC
 
-Il client gRPC come configurazione predefinita prevede un tipo di connessione 1–1, in ambiente produttivo non funziona come vorremmo.
 Il client gRPC predefinito offre la possibilità di connettersi con un semplice record IP/DNS che crea una sola connessione con il servizio di destinazione.
-Ecco perché è necessario effettuare una configurazione diversa.
+Ecco perché è necessario effettuare una configurazione diversa. Esempio in go:
 
 Impostazione di default:
 
