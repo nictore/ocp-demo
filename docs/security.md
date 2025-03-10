@@ -21,8 +21,6 @@ spec:
       mtls: true
 ```
 
-WARNING: Il passaggio alla modalità Enforce è facilmente attuabile se i workload non necessitano di comunicare con risorse esterne, perchè il traffico in egress dagli envoy viaggia cifrato.
-
 ### Verifica mTLS status
 
 La console Kiali offre diversi modi per verificare se le applicazioni, i servizi e i carichi di lavoro hanno la crittografia mTLS abilitata o meno.
