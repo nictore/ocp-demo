@@ -11,7 +11,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "bookinfo.apps.lab.dpastore.uk"    # In alternativa lasciando * viene auto generata la url
+    - "*"
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
