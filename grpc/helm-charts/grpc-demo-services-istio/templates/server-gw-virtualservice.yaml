@@ -5,7 +5,7 @@ metadata:
   name: gw-server-grpc
 spec:
   gateways:
-  - bookinfo-gateway
+  - server-gateway
   hosts:
     - server-grpc.{{ .Release.Namespace }}.svc.cluster.local
   http:
