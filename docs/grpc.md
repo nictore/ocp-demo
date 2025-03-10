@@ -2,7 +2,7 @@
 
 Utilizza protocol buffer che per la serializzazione/deserializzazione è molto più performante rispetto ad un JSON visto che sono byte scambiati. Tra gli svantaggi si può notare che il debugging, ad esempio, è più ostico perchè si necessita di avere un qualcosa che trasforma quei dati in formato leggibili (altrimenti rimangono byte).
 
-## App GRPC rilasciata come Helm Chart in ArgoCD
+## App gRPC rilasciata come Helm Chart in ArgoCD
 
 ### 1. Creazione namespace grpc-demo
 
@@ -57,12 +57,12 @@ Verificare i log lato server, solo una istanza ha ricevuto i messaggi
 **Perché il traffico gRPC non è bilanciato correttamente in Kubernetes?**
 
 Il motivo principale per cui è difficile bilanciare il traffico gRPC è che spesso... si pensa che gRPC sia come HTTP ed è qui che inizia il problema
-Mentre HTTP crea e chiude connessioni per richiesta, gRPC opera su protocollo HTTP2 che funziona su una connessione TCP di lunga durata rendendo più difficile il bilanciamento poiché più richieste passano attraverso la stessa connessione grazie alla funzionalità di multiplexing. Tuttavia, ci sono altri errori comuni:
+mentre HTTP crea e chiude connessioni per richiesta, gRPC opera su protocollo HTTP2 che funziona su una connessione TCP di lunga durata rendendo più difficile il bilanciamento poiché più richieste passano attraverso la stessa connessione grazie alla funzionalità di multiplexing. Tuttavia, ci sono altri errori comuni:
 
 - Configurazione errata del client gRPC
 - Configurazione errata del service Kubernetes
 
-## App GRPC con Istio
+## App gRPC con Istio
 
 Rilasciamo la stessa applicazione Quarkus client-server con istio per verificare gestione delle connessioni multiple grazie agli envoy
 
@@ -136,7 +136,7 @@ Può essere abilitato come segue:
 oc annotate ingresses.config/cluster ingress.operator.openshift.io/default-enable-http2=true
 ```
 
-## gRPC senza Istio? (k8s headless service)
+## gRPC senza Istio?
 
 Il motivo principale per cui è difficile bilanciare il traffico gRPC è che le persone vedono gRPC come HTTP ed è qui che inizia il problema, sono diversi, mentre HTTP apre e chiude le connessioni per richiesta, gRPC opera su un protocollo HTTP2 che funziona su una connessione TCP di lunga durata che rende più difficile il bilanciamento poiché più richieste passano attraverso la stessa connessione grazie alla funzione multiplex.
 
