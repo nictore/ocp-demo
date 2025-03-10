@@ -40,6 +40,7 @@ Per esporre un gateway in https è sufficiente aggiungere all'interno della sua 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
+metadata:
   name: bookinfo-gateway
   namespace: bookinfo
 spec:
