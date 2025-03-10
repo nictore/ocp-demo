@@ -9,7 +9,8 @@ Utilizza protocol buffer che per la serializzazione/deserializzazione è molto p
 Aggiungere annotazione:
 
 ```yaml
-labels: argocd.argoproj.io/managed-by: openshift-gitops
+labels: 
+  argocd.argoproj.io/managed-by: openshift-gitops
 ```
 
 ### 2. Rilascio applicazione Quarkus
@@ -70,7 +71,8 @@ Rilasciamo la stessa applicazione Quarkus client-server con istio per verificare
 Aggiungere annotazione:
 
 ```yaml
-labels: argocd.argoproj.io/managed-by: openshift-gitops
+labels: 
+  argocd.argoproj.io/managed-by: openshift-gitops
 ```
 
 ### 2. Aggiornare ServiceMeshMemberRoll
