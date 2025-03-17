@@ -23,9 +23,6 @@ theme:
 
   features:
     - toc.integrate
-    - navigation.instant
-    - navigation.instant.prefetch
-    - navigation.instant.progress
     - search.suggest
     - search.highlight
     - navigation.footer
@@ -82,4 +79,5 @@ nav:
   - Service Mesh Demo: servicemesh.md
   - gRPC: grpc.md
   - Sicurezza: security.md
-  - ArgoCD Rollouts: argocdrollout.md
+  - Argo Rollouts: argocdrollout.md
+  - Argo Rollouts & Istio: argo_rollout_istio.md
