@@ -66,6 +66,14 @@ spec:
     - istio-rollouts
 ```
 
+### 3.1 Injection automatica dei sidecar
+
+E' possibile sfruttare l'injection automatica dei sidecar configurando una label direttamente sul namespace eseguendo il comando:
+
+```yaml
+oc label namespace istio-rollouts istio-injection=enabled
+```
+
 ## 4. Crezione risorse
 
 ### 4.1 Gateway
@@ -232,7 +240,7 @@ oc argo rollouts promote rollouts-demo -n istio-rollouts
 
 Il 60% del traffico viene indirizzato al servizio stable e il 40% al servizio canary. Il deployment viene quindi messo in pausa a tempo indeterminato finché non lo si promuove manualmente al livello successivo.
 
-### 6.1 Aumento al 100 %
+### 6.1 Step finale (100%)
 
 Aumentare il peso del traffico nella versione canary al 100% ed eliminare il traffico nella precedente versione stabile dell'applicazione eseguendo il seguente comando:
 
